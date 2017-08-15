@@ -1,0 +1,41 @@
+var mongoose = require('mongoose');
+
+var options = { 
+    server: {
+        ssl : true,
+        sslValidate:false,
+    },
+};
+
+mongoose.connect('mongodb://localhost/test', options);
+
+
+
+var db = mongoose.connection;
+
+var People = mongoose.Schema({
+    imie: String,
+    nazwisko: String,
+    haslo: String
+});
+
+People.methods.sayHi = function () {
+    console.log('My name is ' + this.lname + ', ' + this.fname + ' ' + this.lname + '.');
+};
+
+var Model = db.model('Sedziowie', People);
+
+db.on('open', function () {
+    
+    var james = new Model({
+        imie: "Bartek",
+        nazwisko: "Lolowicz",
+	haslo: "test"
+    });
+
+    james.save(function (err, item) {
+        console.dir(err);
+        console.log(item);
+        db.close();
+    });
+});

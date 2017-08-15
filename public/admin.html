@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Test pasport.socketio</title>
+    <script src="/socket.io/socket.io.js"></script>
+     <link rel="stylesheet" type="text/css" href="styles/admin.css">
+</head>
+
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+   <!-- <script src="adminScript.js"></script> -->
+    <script>
+       
+      
+        
+    var document, io, window;     
+var globalAllow=0;
+        
+    var head = document.getElementsByTagName('head')[0];
+    var js = document.createElement("script");
+    js.type = "text/javascript";
+    var appended;
+        
+    var socket = io.connect('//' + window.location.host, {
+        transports: ['polling']
+    });
+    socket.on('news', function(data) {
+        if(JSON.stringify(data).indexOf("1")>=0)
+            {
+                 if(globalAllow===0)
+                    globalAllow=1;
+                js.src = "scripts/adminScript.js";
+                head.appendChild(js);
+                
+                
+            }
+        else
+            {
+                document.body.innerHTML="You shouldn't be here";
+            }
+       
+        
+        
+        socket.emit('reply', {
+            reply: 'odzew klienta'
+        });
+    });
+        
+        
+        
+    </script>
+   <!-- <div><a href="/logout">Wyloguj</a></div>-->
+    <table style="width:100%;"><tr><td valign="top">
+    <div id="menu">
+        <ul>
+            <li onclick="pokazMenu(0);">Lista zawodów<p></p></li>
+            <li onclick="pokazMenu(1);">Dodaj zawody<p></p></li>
+            <li onclick="pokazMenu(2);">Dodaj konia<p></p></li>
+            <li onclick="pokazMenu(3);">Dodaj sędziego<p></p></li>
+            <li onclick="pokazMenu(3);"><a href="/logout">Wyloguj</a><p></p></li>
+        </ul>
+        
+    </div>
+    </td><td  style="width:80%;">
+    <div id="okno">
+  
+        
+        <div id="sedziaField" style="display: none;">
+            <table style="width:100%;">
+            <tr style="width:100%;">
+            <td style="width:50%;">
+            Dodaj sędziego : 
+            <div id="dodawanieField">
+               <table>
+                   <tr><td>Imie: </td><td><input type="text" id="sedziaImie" /></td></tr><br>
+                    <tr><td>Nazwisko: </td><td><input type="text" id="sedziaNazwisko" /></td></tr><br>
+                   <tr><td>Hasło: </td><td><input type="text" id="sedziaHaslo" /></td></tr><br>
+                   <tr><td></td><td><button onclick="createJudges()" id="buttonJudge">Dodaj sedziego</button></td></tr><br><br>
+                </table><br>
+                
+            </div><br><br>
+            </td><td  style="width:50%;">
+            Edytuj sędziego : 
+            <div style="border:1px solid;" id="listaSedziowD"></div><br>
+             </td></tr>
+            </table>
+        </div>
+        <div id="konField" style="display: none;">
+            <table style="width:100%;">
+            <tr style="width:100%;">
+            <td style="width:50%;">
+            Dodaj konia : 
+            <div id="dodawanieField">
+                <table>
+            <tr><td>Imie</td><td><input type="text" id="konImie" /></td></tr>
+            <tr><td>Pleć</td><td><select id="konPlec">
+               <option value="klacz">klacz</option>
+               <option value="ogier">ogier</option>
+            </select></td></tr>
+           
+            
+            <tr><td>Hodowca</td><td><input type="text" id="konHodowca" /></td></tr>
+             <tr><td></td><td><button onclick="createHorses()" id="buttonHorse">Dodaj konia</button></td></tr>
+                </table>
+                </div><br>
+                  </td><td  style="width:50%;">
+                  Edytuj konia :
+             <div style="border:1px solid;" id="listaKoniD"></div><br>
+              </td></tr>
+             </table>
+        </div>
+       
+        
+    <br><br>
+    <div id="tworzenieZawodow" style="display: none;">
+       <table>
+           <tr><td>Nazwa : </td><td><input type="text" id="nazwaZawodow" /></td></tr>
+         <tr><td>Data (dd.mm.rrrr) : </td><td><input type="text" id="dataZawodow"></td></tr>
+         <tr><td>Ilosc klas : </td><td><input onchange="zmienIloscKlas()" type="text" id="iloscKlas"></td></tr>
+         <tr><td>Ilosc sedziow w kazdej klasie : </td><td><input type="text" id="iloscSedziowPer"></td></tr>
+         <tr><td>Adres streamu (zostaw puste jesli brak) : </td><td><input type="text" id="urlStream"></td></tr>
+        </table><br>
+        Wybierz sędziów do zawodów : 
+        <div style="border:1px solid;" id="listaSedziow"></div><br>
+        <br>Wybierz konie i przynależność do grupy w zawodach :
+        <div style="border:1px solid;" id="listaKoni"></div><br>
+        <div id="radioButt">
+            Wybierz zakres punktów : <br>
+            <input type="radio" name="maxScore" value="10" checked> 0-10<br>
+            <input type="radio" name="maxScore" value="20"> 0-20<br><br>
+            Wybierz system punktowy : <br>
+            <input type="radio" name="divideScore" value="0" checked> 0.5<br>
+            <input type="radio" name="divideScore" value="1"> 1<br>
+        </div><br><br>
+        <center><button style="background-color:lightblue; font-size:150%;" onclick="createMatch()" id="buttonCreate">Stwórz zawody</button></center><br><br><br>
+    </div>
+    <div id="listaZawodow" style="display: block;"></div>
+    <!--<button onclick="stopMatch()" id="buttonStop">Stop</button>-->
+    </div>
+    </td></tr></table>
+</body>
+
+</html>

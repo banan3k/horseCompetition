@@ -1,0 +1,19 @@
+{
+  "name": "mastermind",
+  "version": "0.1.0",
+  "authors": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "2.1.x",
+    "components-font-awesome": "^4.5.0",
+    "skeleton": "^2.0.4"
+  }
+}

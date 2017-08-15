@@ -1,0 +1,25 @@
+{
+  "name": "horseServ",
+  "version": "1.0.0",
+  "description": "Serwer do obsługi zawodów konnych",
+  "main": "serwer.js",
+  "scripts": {
+    "start": "node serwer.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "cookie-parser": "^1.4.1",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "passport": "^0.2.1",
+    "passport-local": "^1.0.0",
+    "socketio": "^1.0.0",
+    "passport.socketio": "^3.6.1",
+    "connect-mongo": "^1.0.0",
+    "async": "^1.0.0",
+    "password-hash": "^1.0.0",
+    "connect-roles": "^1.0.0"
+  }
+}
